@@ -1,0 +1,25 @@
+CREATE USER 'bigdata'@'localhost' IDENTIFIED BY '12346'; 
+GRANT ALL ON *.* TO 'bigdata'@'localhost';
+flush privileges;
+
+create database bigdata;
+use bigdata;
+
+DROP TABLE IF EXISTS orderlist;
+CREATE TABLE orderlist(
+seq INT(11)  primary key not null auto_increment,
+ordernum varchar(20), 
+productname varchar(300),
+productprice int(8),
+paytype varchar(100),
+paymenttype varchar(100),
+orderarea varchar(30),
+date DATE
+)ENGINE=MyISAM DEFAULT CHARSET=gb2312;
+
+
+LOAD DATA LOCAL INFILE "/home/bigdata/11.csv" INTO TABLE orderlist  character set gb2312 
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\r\n' 
+ignore 1 lines
+(ordernum,productname,productprice,paytype,paymenttype,orderarea,date);
